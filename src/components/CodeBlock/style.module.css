@@ -1,0 +1,21 @@
+.codeWrapper {
+    height: auto;
+    display: block;
+    background-color: #1d1f20;
+    padding: 1.25rem 1.75rem;
+    border-radius: 1rem;
+}
+
+.codeContainer .fileName {
+    color: #ff1e56;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.codeContainer code {
+    font-size: 1rem;
+    color: #ddd;
+    line-height: 1.8;
+}

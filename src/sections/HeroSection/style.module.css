@@ -1,0 +1,15 @@
+.sectionWrapper {
+    padding: 2rem 0 1rem 0;
+}
+.jumboTron{
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.talawaIcon{
+    height: 140px;
+    width: 140px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
