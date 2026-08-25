@@ -71,11 +71,17 @@ export function BeforeAfter({ label, note, before, after }: Props) {
           if (e.pointerType === 'mouse' && e.buttons === 0) return;
           trackPointer(e.clientX);
         }}
-        onPointerDown={(e) => trackPointer(e.clientX)}
+        onPointerDown={(e) => {
+          // Capture so the drag keeps tracking even once the pointer leaves the
+          // stage bounds or passes over the handle icon — without this, a drag
+          // that starts on the ⇄ handle can stall after the first move event.
+          e.currentTarget.setPointerCapture(e.pointerId);
+          trackPointer(e.clientX);
+        }}
       >
         {/* eslint-disable @next/next/no-img-element */}
-        <img className="bef" src={before.resolved.src} alt={`Before — ${label}`} />
-        <img className="aft" src={after.resolved.src} alt={`After — ${label}`} />
+        <img className="bef" src={before.resolved.src} alt={`Before — ${label}`} draggable={false} />
+        <img className="aft" src={after.resolved.src} alt={`After — ${label}`} draggable={false} />
         {/* eslint-enable @next/next/no-img-element */}
         <span className="tagl">before</span>
         <span className="tagr">after</span>

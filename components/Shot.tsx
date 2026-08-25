@@ -2,7 +2,7 @@
 
 import type { Media } from '@/lib/data';
 import type { ResolvedShot } from '@/lib/format';
-import { useLightbox } from './LightboxProvider';
+import { useLightbox, type LightboxItem } from './LightboxProvider';
 
 interface Props {
   media: Media;
@@ -10,9 +10,13 @@ interface Props {
   caption: string;
   /** Height class differs between the inline PR strip and the big gallery */
   variant?: 'strip' | 'gallery';
+  /** This shot's position within its enclosing list, for lightbox arrow-key nav */
+  index?: number;
+  /** The full resolved list this shot belongs to — siblings the lightbox can step to */
+  siblings?: LightboxItem[];
 }
 
-export function Shot({ media, resolved, caption }: Props) {
+export function Shot({ media, resolved, caption, index = 0, siblings }: Props) {
   const open = useLightbox();
 
   // Not downloaded and not hotlinkable — say so instead of showing a broken box.
@@ -31,14 +35,17 @@ export function Shot({ media, resolved, caption }: Props) {
     );
   }
 
+  const self: LightboxItem = { src: resolved.src, isVideo: resolved.isVideo, caption };
+  const openHere = () => open(siblings ?? [self], siblings ? index : 0);
+
   return (
     <figure
       className={`shot${resolved.isVideo ? ' vid' : ''}`}
-      onClick={() => open({ src: resolved.src, isVideo: resolved.isVideo, caption })}
+      onClick={openHere}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          open({ src: resolved.src, isVideo: resolved.isVideo, caption });
+          openHere();
         }
       }}
       tabIndex={0}

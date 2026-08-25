@@ -27,6 +27,10 @@ export interface PullRequest {
   /** What it changed and why, condensed from the original PR description */
   note: string;
   media: Media[];
+  /** True for the branch-sync PRs that merged adminUI-redesign into develop/master */
+  mergesToMainline?: boolean;
+  /** Set on the PR that merged into master rather than develop */
+  mergesToMaster?: boolean;
 }
 
 export interface Phase {
@@ -291,27 +295,29 @@ export const PHASES: Phase[] = [
       {
         number: 926,
         repo: "talawa-admin",
-        title: "Fixed Merge conflict with the develop branch",
+        title: "Merge conflict fix: linting rules and readable variable names",
+        mergesToMainline: true,
         url: "https://github.com/PalisadoesFoundation/talawa-admin/pull/926",
         created: "2023-06-13",
         closed: "2023-06-14",
         merged: true,
         comments: 4,
         note:
-          "Resolved conflicts between the long-running redesign branch and develop.",
+          "Pulled develop's automated-linting standardisation (#916) and a pass that renamed opaque `data` variables to something readable (#835) into the redesign branch, resolving the conflicts that came with them.",
         media: [],
       },
       {
         number: 927,
         repo: "talawa-admin",
-        title: "Merge latest adminUI-Redesign into Develop",
+        title: "First merge: CODE_STYLE.md conventions and the Bootstrap 5 migration",
+        mergesToMainline: true,
         url: "https://github.com/PalisadoesFoundation/talawa-admin/pull/927",
         created: "2023-06-14",
         closed: "2023-06-14",
         merged: true,
         comments: 3,
         note:
-          "First merge of the redesign branch back into develop.",
+          "First merge of the redesign branch back into develop — landed the documented CODE_STYLE.md conventions (#917) and the Bootstrap 4 to 5 migration (#925) for the rest of the team to build on.",
         media: [],
       },
       {
@@ -330,14 +336,15 @@ export const PHASES: Phase[] = [
       {
         number: 934,
         repo: "talawa-admin",
-        title: "Merge latest Admin UI Redesign into Develop",
+        title: "Second merge: the customised Bootstrap theming layer",
+        mergesToMainline: true,
         url: "https://github.com/PalisadoesFoundation/talawa-admin/pull/934",
         created: "2023-06-28",
         closed: "2023-07-01",
         merged: true,
         comments: 4,
         note:
-          "Second merge back into develop.",
+          "Second merge back into develop — the Sass theming layer from #929 (documented, folder structure cleaned up) plus the usual round of conflict fixes and lint passes that come with syncing two branches.",
         media: [],
       },
     ],
@@ -352,27 +359,27 @@ export const PHASES: Phase[] = [
       {
         number: 938,
         repo: "talawa-admin",
-        title: "Merge conflict fixed, merge latest develop into adminUI-redesign",
+        title: "Pulled develop back in: CI versioning check and user-portal merge",
         url: "https://github.com/PalisadoesFoundation/talawa-admin/pull/938",
         created: "2023-07-01",
         closed: "2023-07-01",
         merged: true,
         comments: 2,
         note:
-          "Pulled develop back into the redesign branch and fixed conflicts — keeping the branch shallow rather than letting it drift.",
+          "Pulled develop back into the redesign branch and fixed conflicts — keeping the branch shallow rather than letting it drift. Brought in the API-versioning CI check (#924) and the user-portal merge (#935) that had landed on develop in the meantime.",
         media: [],
       },
       {
         number: 942,
         repo: "talawa-admin",
-        title: "Merge Revamped Homepage into adminUI-redesign",
+        title: "New homepage: rebuilt login, animated loader, translations",
         url: "https://github.com/PalisadoesFoundation/talawa-admin/pull/942",
         created: "2023-07-05",
         closed: "2023-07-17",
         merged: true,
         comments: 6,
         note:
-          "Revamped, fully responsive home screen. Temporarily fixed the top navigation overlap, flagged in the PR as a stopgap to be properly fixed later rather than quietly left.",
+          "Revamped, fully responsive home screen with a rebuilt login page (100% test coverage), an animated loader, and translations wired in. Temporarily fixed the top navigation overlap, flagged in the PR as a stopgap to be properly fixed later rather than quietly left. Also reverted an in-flight newsfeed redesign (#939) that broke the build, and picked up the API-versioning CI work along the way.",
         media: [
           {
             file: "pr942-01.png",
@@ -427,20 +434,22 @@ export const PHASES: Phase[] = [
       {
         number: 947,
         repo: "talawa-admin",
-        title: "Merge AdminUI-Redesign into Develop",
+        title: "Third merge: the new homepage lands, plus a UserPortal fix",
+        mergesToMainline: true,
         url: "https://github.com/PalisadoesFoundation/talawa-admin/pull/947",
         created: "2023-07-20",
         closed: "2023-07-20",
         merged: true,
         comments: 3,
         note:
-          "Third merge back into develop.",
+          "Third merge back into develop — carried #942's homepage rebuild in, and fixed a coloring regression in UserPortal that the ChangeLanguageDropdown reuse had introduced.",
         media: [],
       },
       {
         number: 950,
         repo: "talawa-admin",
-        title: "Merge latest adminUI-Redesign",
+        title: "LeftDrawer, SuperAdminScreen and OrgListCard, built from scratch",
+        mergesToMainline: true,
         url: "https://github.com/PalisadoesFoundation/talawa-admin/pull/950",
         created: "2023-07-30",
         closed: "2023-08-12",
@@ -537,14 +546,15 @@ export const PHASES: Phase[] = [
       {
         number: 956,
         repo: "talawa-admin",
-        title: "Merge latest AdminUI Redesign into develop",
+        title: "SuperAdminScreen, LeftDrawerOrg, and the event dashboard integration",
+        mergesToMainline: true,
         url: "https://github.com/PalisadoesFoundation/talawa-admin/pull/956",
         created: "2023-08-13",
         closed: "2023-08-29",
         merged: true,
         comments: 5,
         note:
-          "Merged the new layout scaffolding into develop so other contributors could build their screens on top of it.",
+          "Merged the new layout scaffolding into develop so other contributors could build their screens on top of it — SuperAdminScreen and LeftDrawerOrg pushed to 100% test coverage, the redundant admin navbar removed, and the event dashboard wired into the new drawer.",
         media: [
           {
             file: "pr956-01.png",
@@ -581,7 +591,8 @@ export const PHASES: Phase[] = [
       {
         number: 972,
         repo: "talawa-admin",
-        title: "Merge latest AdminUI Redesign into develop",
+        title: "Dashboard, Block/Unblock and Settings, rebuilt",
+        mergesToMainline: true,
         url: "https://github.com/PalisadoesFoundation/talawa-admin/pull/972",
         created: "2023-09-06",
         closed: "2023-09-09",
@@ -629,7 +640,9 @@ export const PHASES: Phase[] = [
       {
         number: 1006,
         repo: "talawa-admin",
-        title: "Merge latest AdminUI Redesign into Master",
+        title: "Final merge to master: Users screen, forgot-password, infinite scroll",
+        mergesToMainline: true,
+        mergesToMaster: true,
         url: "https://github.com/PalisadoesFoundation/talawa-admin/pull/1006",
         created: "2023-10-24",
         closed: "2023-10-31",

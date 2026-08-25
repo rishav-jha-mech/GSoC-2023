@@ -2,8 +2,23 @@ import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import { LightboxProvider } from '@/components/LightboxProvider';
 import { Reveal } from '@/components/Reveal';
+import { Nav } from '@/components/Nav';
 import { META } from '@/lib/data';
 import './globals.css';
+
+/**
+ * Runs before hydration so the theme is correct on first paint — no
+ * light-flash-then-dark on load. Reads the same key ThemeToggle writes to.
+ */
+const THEME_INIT = `
+try {
+  var t = localStorage.getItem('theme');
+  if (t !== 'light' && t !== 'dark') {
+    t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+  document.documentElement.setAttribute('data-theme', t);
+} catch (e) {}
+`;
 
 export const metadata: Metadata = {
   title: `${META.project} — GSoC ${META.year} · Talawa · ${META.org}`,
@@ -23,7 +38,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/*
           Fonts are loaded via <link> rather than next/font on purpose: next/font
@@ -33,15 +48,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Public+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&display=swap"
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&display=swap"
           rel="stylesheet"
         />
+        {/* eslint-disable-next-line react/no-danger */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT }} />
       </head>
       <body>
-        <a className="skip" href="#chapter-00">
+        <a className="skip" href="#main">
           Skip to content
         </a>
-        <LightboxProvider>{children}</LightboxProvider>
+        <Nav />
+        <LightboxProvider>
+          <main id="main">{children}</main>
+        </LightboxProvider>
         <Reveal />
       </body>
     </html>
