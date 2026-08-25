@@ -21,14 +21,25 @@ try {
 `;
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://gsoc.rishavjha.com'),
   title: `${META.project} — GSoC ${META.year} · Talawa · ${META.org}`,
   description:
     'Rebuilding the Talawa admin portal during Google Summer of Code 2023: the theming layer, the layout primitives, and the branch that stayed mergeable for five months.',
-  authors: [{ name: META.contributor, url: `https://github.com/${META.handle}` }],
+  authors: [{ name: META.contributor, url: 'https://rishavjha.com' }],
+  creator: META.contributor,
+  publisher: META.contributor,
   openGraph: {
     title: `${META.project} — GSoC ${META.year}`,
     description: `A case study of the Talawa Admin redesign for ${META.org}.`,
     type: 'article',
+    url: 'https://gsoc.rishavjha.com',
+    images: ['/og-image.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${META.project} — GSoC ${META.year}`,
+    description: `A case study of the Talawa Admin redesign for ${META.org}.`,
+    images: ['/og-image.png'],
   },
 };
 

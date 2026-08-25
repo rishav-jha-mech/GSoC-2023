@@ -70,6 +70,14 @@ export function Nav() {
           >
             {theme === 'light' ? '☀' : '☾'}
           </button>
+          <a
+            href="https://rishavjha.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="author-link"
+          >
+            by Rishav Jha
+          </a>
         </div>
       </div>
     </header>

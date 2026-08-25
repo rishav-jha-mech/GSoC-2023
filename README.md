@@ -1,5 +1,7 @@
 # Talawa Admin UI Redesign — GSoC 2023
 
+![Site screenshot](public/readme-hero.png)
+
 Case study of my Google Summer of Code 2023 work with The Palisadoes
 Foundation, redesigning the admin UI for Talawa. Built from the actual PR
 history of `talawa-admin` and `talawa-api`.

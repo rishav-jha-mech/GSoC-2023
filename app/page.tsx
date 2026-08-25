@@ -180,6 +180,14 @@ export default function Page() {
             >
               github.com/{META.handle}
             </a>
+            <a
+              className="lnk"
+              href="https://rishavjha.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              More of my work → rishavjha.com
+            </a>
           </div>
         </div>
       </footer>
